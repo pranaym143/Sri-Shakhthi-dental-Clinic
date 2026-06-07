@@ -1,0 +1,6 @@
+{
+  "name": "Sri Shakthi Dental Clinic & Implant Centre",
+  "description": "An ultra-premium, luxury dental and dental implant care website designed for Sri Shakthi Dental Clinic.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

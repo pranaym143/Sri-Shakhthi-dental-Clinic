@@ -8,8 +8,8 @@ export default function TransformationSlider() {
   const containerRef = useRef<HTMLDivElement>(null);
 
   // High quality premium dentists images to compare
-  const beforeUrl = "/src/assets/images/damaged_tooth_before_1780826015008.png"; // Stained version
-  const afterUrl = "/src/assets/images/restored_tooth_after_1780826029787.png"; // Perfect restored version
+  const beforeUrl = "/images/damaged_tooth_before_1780826015008.png"; // Stained version
+  const afterUrl = "/images/restored_tooth_after_1780826029787.png"; // Perfect restored version
 
   const handleMove = (clientX: number) => {
     if (!containerRef.current) return;

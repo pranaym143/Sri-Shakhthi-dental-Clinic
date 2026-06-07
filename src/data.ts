@@ -1,9 +1,9 @@
 import { Service, Testimonial, ChoiceFeature, JourneyStep } from "./types";
 
 export const IMAGES = {
-  clinicHero: "/src/assets/images/luxury_dental_hero_1780825348666.png",
-  smilingHero: "/src/assets/images/smiling_patient_hero_1780825364644.png",
-  implantDetail: "/src/assets/images/dental_implant_detail_1780825381189.png",
+  clinicHero: "/images/luxury_dental_hero_1780825348666.png",
+  smilingHero: "/images/smiling_patient_hero_1780825364644.png",
+  implantDetail: "/images/dental_implant_detail_1780825381189.png",
   cosmeticDentistry: "https://images.unsplash.com/photo-1579684389782-64d84b5e902a?q=80&w=600&auto=format&fit=crop",
   orthodontics: "https://images.unsplash.com/photo-1598256989800-fe5f95da9787?q=80&w=600&auto=format&fit=crop",
   teethWhitening: "https://images.unsplash.com/photo-1542884748-2b87b36c6b90?q=80&w=600&auto=format&fit=crop",

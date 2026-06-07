@@ -46,6 +46,39 @@ export default function App() {
   const [testimonialIndex, setTestimonialIndex] = useState(0);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [visibleJourneyIndex, setVisibleJourneyIndex] = useState<number>(0);
+  const [activeSection, setActiveSection] = useState<string>("hero");
+
+  // Track active section during scroll with IntersectionObserver
+  useEffect(() => {
+    if (isLoading) return;
+
+    const sections = ["hero", "about", "services", "features", "implant-centre", "transformations", "journey", "contact"];
+    const sectionElements = sections.map((id) => document.getElementById(id)).filter(Boolean);
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      {
+        rootMargin: "-20% 0px -55% 0px",
+        threshold: 0.1,
+      }
+    );
+
+    sectionElements.forEach((el) => {
+      if (el) observer.observe(el);
+    });
+
+    return () => {
+      sectionElements.forEach((el) => {
+        if (el) observer.unobserve(el);
+      });
+    };
+  }, [isLoading]);
 
   // Stats numerical counter effect simulation
   const [counterTrigger, setCounterTrigger] = useState(false);
@@ -72,6 +105,7 @@ export default function App() {
   // Scroll handler helper to smooth-scroll
   const scrollToSection = (id: string) => {
     setIsMobileMenuOpen(false);
+    setActiveSection(id);
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -121,13 +155,76 @@ export default function App() {
 
               {/* Desktop anchor links */}
               <nav className="hidden lg:flex items-center space-x-8 text-xs font-mono tracking-widest text-slate-300">
-                <button onClick={() => scrollToSection("about")} className="hover:text-[#d4af37] transition cursor-pointer uppercase">ABOUT</button>
-                <button onClick={() => scrollToSection("services")} className="hover:text-[#d4af37] transition cursor-pointer uppercase">SERVICES</button>
-                <button onClick={() => scrollToSection("features")} className="hover:text-[#d4af37] transition cursor-pointer uppercase">CHOOSE US</button>
-                <button onClick={() => scrollToSection("implant-centre")} className="hover:text-cyan-400 transition cursor-pointer uppercase text-cyan-500">IMPLANT SPOTLIGHT</button>
-                <button onClick={() => scrollToSection("transformations")} className="hover:text-[#d4af37] transition cursor-pointer uppercase">BEFORE & AFTER</button>
-                <button onClick={() => scrollToSection("journey")} className="hover:text-[#d4af37] transition cursor-pointer uppercase">JOURNEY</button>
-                <button onClick={() => scrollToSection("contact")} className="hover:text-[#d4af37] transition cursor-pointer uppercase">CONTACT</button>
+                <button
+                  onClick={() => scrollToSection("about")}
+                  className={`transition-all duration-300 cursor-pointer uppercase pb-0.5 border-b ${
+                    activeSection === "about"
+                      ? "text-amber-400 border-amber-400/50 font-medium"
+                      : "text-slate-300 border-transparent hover:text-[#d4af37]"
+                  }`}
+                >
+                  ABOUT
+                </button>
+                <button
+                  onClick={() => scrollToSection("services")}
+                  className={`transition-all duration-300 cursor-pointer uppercase pb-0.5 border-b ${
+                    activeSection === "services"
+                      ? "text-amber-400 border-amber-400/50 font-medium"
+                      : "text-slate-300 border-transparent hover:text-[#d4af37]"
+                  }`}
+                >
+                  SERVICES
+                </button>
+                <button
+                  onClick={() => scrollToSection("features")}
+                  className={`transition-all duration-300 cursor-pointer uppercase pb-0.5 border-b ${
+                    activeSection === "features"
+                      ? "text-amber-400 border-amber-400/50 font-medium"
+                      : "text-slate-300 border-transparent hover:text-[#d4af37]"
+                  }`}
+                >
+                  CHOOSE US
+                </button>
+                <button
+                  onClick={() => scrollToSection("implant-centre")}
+                  className={`transition-all duration-300 cursor-pointer uppercase pb-0.5 border-b ${
+                    activeSection === "implant-centre"
+                      ? "text-cyan-400 border-cyan-400 font-semibold drop-shadow-[0_0_8px_rgba(34,211,238,0.5)]"
+                      : "text-slate-300 border-transparent hover:text-cyan-400"
+                  }`}
+                >
+                  IMPLANT SPOTLIGHT
+                </button>
+                <button
+                  onClick={() => scrollToSection("transformations")}
+                  className={`transition-all duration-300 cursor-pointer uppercase pb-0.5 border-b ${
+                    activeSection === "transformations"
+                      ? "text-amber-400 border-amber-400/50 font-medium"
+                      : "text-slate-300 border-transparent hover:text-[#d4af37]"
+                  }`}
+                >
+                  BEFORE & AFTER
+                </button>
+                <button
+                  onClick={() => scrollToSection("journey")}
+                  className={`transition-all duration-300 cursor-pointer uppercase pb-0.5 border-b ${
+                    activeSection === "journey"
+                      ? "text-amber-400 border-amber-400/50 font-medium"
+                      : "text-slate-300 border-transparent hover:text-[#d4af37]"
+                  }`}
+                >
+                  JOURNEY
+                </button>
+                <button
+                  onClick={() => scrollToSection("contact")}
+                  className={`transition-all duration-300 cursor-pointer uppercase pb-0.5 border-b ${
+                    activeSection === "contact"
+                      ? "text-amber-400 border-amber-400/50 font-medium"
+                      : "text-slate-300 border-transparent hover:text-[#d4af37]"
+                  }`}
+                >
+                  CONTACT
+                </button>
               </nav>
 
               {/* Desktop quick dial button & Book Action */}
@@ -164,13 +261,76 @@ export default function App() {
                   className="lg:hidden bg-[#03040b] border-b border-slate-800 text-left overflow-hidden"
                 >
                   <div className="p-6 space-y-4 flex flex-col font-mono text-xs tracking-widest text-slate-300">
-                    <button onClick={() => scrollToSection("about")} className="hover:text-[#d4af37] py-2 text-left cursor-pointer">ABOUT</button>
-                    <button onClick={() => scrollToSection("services")} className="hover:text-[#d4af37] py-2 text-left cursor-pointer">SERVICES</button>
-                    <button onClick={() => scrollToSection("features")} className="hover:text-[#d4af37] py-2 text-left cursor-pointer">CHOOSE US</button>
-                    <button onClick={() => scrollToSection("implant-centre")} className="hover:text-[#d4af37] py-2 text-left text-cyan-400 cursor-pointer">IMPLANT SPOTLIGHT</button>
-                    <button onClick={() => scrollToSection("transformations")} className="hover:text-[#d4af37] py-2 text-left cursor-pointer">BEFORE & AFTER</button>
-                    <button onClick={() => scrollToSection("journey")} className="hover:text-[#d4af37] py-2 text-left cursor-pointer">JOURNEY</button>
-                    <button onClick={() => scrollToSection("contact")} className="hover:text-[#d4af37] py-2 text-left cursor-pointer">CONTACT</button>
+                    <button
+                      onClick={() => scrollToSection("about")}
+                      className={`py-2 text-left transition ${
+                        activeSection === "about"
+                          ? "text-amber-400 font-semibold border-l-2 border-amber-400/80 pl-3"
+                          : "text-slate-300 hover:text-[#d4af37]"
+                      }`}
+                    >
+                      ABOUT
+                    </button>
+                    <button
+                      onClick={() => scrollToSection("services")}
+                      className={`py-2 text-left transition ${
+                        activeSection === "services"
+                          ? "text-amber-400 font-semibold border-l-2 border-amber-400/80 pl-3"
+                          : "text-slate-300 hover:text-[#d4af37]"
+                      }`}
+                    >
+                      SERVICES
+                    </button>
+                    <button
+                      onClick={() => scrollToSection("features")}
+                      className={`py-2 text-left transition ${
+                        activeSection === "features"
+                          ? "text-amber-400 font-semibold border-l-2 border-amber-400/80 pl-3"
+                          : "text-slate-300 hover:text-[#d4af37]"
+                      }`}
+                    >
+                      CHOOSE US
+                    </button>
+                    <button
+                      onClick={() => scrollToSection("implant-centre")}
+                      className={`py-2 text-left transition ${
+                        activeSection === "implant-centre"
+                          ? "text-cyan-400 font-semibold border-l-2 border-cyan-400 pl-3 drop-shadow-[0_0_8px_rgba(34,211,238,0.5)]"
+                          : "text-slate-300 hover:text-cyan-400"
+                      }`}
+                    >
+                      IMPLANT SPOTLIGHT
+                    </button>
+                    <button
+                      onClick={() => scrollToSection("transformations")}
+                      className={`py-2 text-left transition ${
+                        activeSection === "transformations"
+                          ? "text-amber-400 font-semibold border-l-2 border-amber-400/80 pl-3"
+                          : "text-slate-300 hover:text-[#d4af37]"
+                      }`}
+                    >
+                      BEFORE & AFTER
+                    </button>
+                    <button
+                      onClick={() => scrollToSection("journey")}
+                      className={`py-2 text-left transition ${
+                        activeSection === "journey"
+                          ? "text-amber-400 font-semibold border-l-2 border-amber-400/80 pl-3"
+                          : "text-slate-300 hover:text-[#d4af37]"
+                      }`}
+                    >
+                      JOURNEY
+                    </button>
+                    <button
+                      onClick={() => scrollToSection("contact")}
+                      className={`py-2 text-left transition ${
+                        activeSection === "contact"
+                          ? "text-amber-400 font-semibold border-l-2 border-amber-400/80 pl-3"
+                          : "text-slate-300 hover:text-[#d4af37]"
+                      }`}
+                    >
+                      CONTACT
+                    </button>
                     
                     <div className="border-t border-slate-900 pt-4 flex flex-col space-y-3">
                       <a href="tel:+916303053196" className="flex items-center space-x-2 text-slate-200">
